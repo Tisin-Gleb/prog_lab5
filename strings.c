@@ -4,7 +4,7 @@
 
 int sspn(char *buf)
 {
-    char inc_sym[] = {'\0', '/'};
+    char inc_sym[] = {'\0', '~'};
 
     for (int i = 0; i < slen(buf); i++)
     {
@@ -35,19 +35,13 @@ int schr(char *str, char ch)
 }
 
 
-int isabsolute(char *buf)
+int ispath(char *buf)
 {
     int length = slen(buf);
-    // for (int i = 0; i < length; i++)
-    // {
-    //     if (buf[i] == ' ' || (buf[i] == '/' && buf[i+1] == '/'))
-    //     {
-    //         return 0;
-    //     }
-    // }
-    if (buf[0] != '/') return 0;
+    if (buf[0] == '/' && buf[1] != '~') return 1;
+    if (buf[0] == '~' && buf[1] == '/') return 1;
 
-    return 1;
+    return 0;
 }
 
 int slen(char *buf)
