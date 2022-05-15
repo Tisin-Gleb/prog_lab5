@@ -1,26 +1,53 @@
 #include "strings.h"
 #include <stdio.h>
 #define MAXPATH 260
-// sspn(char *buf)
-// {
-//     char inc_sym[] = {'\0', '/'};
-//     int length = strlen(buf);
-//     int i = 0;
-//     printf("%d\n", length);
-//     while(length--)
-//     {   
-        
-//     }
-    
-//     //char array_inc_sym = {'*', '?', ' ', '$', '&', '(', ')', '/', '.'};
-// }
+
+int sspn(char *buf)
+{
+    char inc_sym[] = {'\0', '/'};
+
+    for (int i = 0; i < slen(buf); i++)
+    {
+        for (int j = 0; j < sizeof(inc_sym); j++)
+        {
+            if (buf[i] == inc_sym[j])
+            {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
+int schr(char *str, char ch)
+{
+    int i = 0;
+    while (*str != '\0')
+    {
+        if (*str == ch)
+        {
+            return i;
+        }
+        str++;
+        i++;
+    }
+    return -1;
+}
+
 
 int isabsolute(char *buf)
 {
-    if (buf[0] == '/')
-        return 1;
-    else
-        return 0;
+    int length = slen(buf);
+    // for (int i = 0; i < length; i++)
+    // {
+    //     if (buf[i] == ' ' || (buf[i] == '/' && buf[i+1] == '/'))
+    //     {
+    //         return 0;
+    //     }
+    // }
+    if (buf[0] != '/') return 0;
+
+    return 1;
 }
 
 int slen(char *buf)
@@ -64,22 +91,18 @@ int scmp(char *str1, char *str2)
     return 0;
 }
 
-int stok(char *in_string, char delim)
+int stok(char *in_string, char delim, char *ptr[])
 {
-    int length = slen(in_string);
-    char buf[length + 1];
-    FILE *tokens;
-    if ((tokens = fopen("tokens.txt", "w+")) == NULL)
-        return 0;
-    for (int i = 0; i < length; i++)
+    char *suf = in_string;
+    ptr[0] = in_string;
+    int i, j = 1;
+    while ( (i = schr(suf, delim)) >= 0)
     {
-        if (in_string[i] == delim)
-        {
-            scpy(buf, in_string);
-            buf[i] = '\0';
-            fprintf(tokens, "%s", buf);
-        }
+        suf[i] = '\0';
+        suf = suf + i + 1;
+        ptr[j] = suf;
+        j++;
     }
-    fclose(tokens);
-    return 1;
+    
+    return j;
 }
