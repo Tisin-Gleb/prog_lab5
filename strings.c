@@ -2,22 +2,6 @@
 #include <stdio.h>
 #define MAXPATH 260
 
-int sspn(char *buf)
-{
-    char inc_sym[] = {'\0', '~'};
-
-    for (int i = 0; i < slen(buf); i++)
-    {
-        for (int j = 0; j < sizeof(inc_sym); j++)
-        {
-            if (buf[i] == inc_sym[j])
-            {
-                return 0;
-            }
-        }
-    }
-    return 1;
-}
 
 int schr(char *str, char ch)
 {
@@ -35,11 +19,10 @@ int schr(char *str, char ch)
 }
 
 
-int ispath(char *buf)
+int is_abs_path(char *buf)
 {
     int length = slen(buf);
-    if (buf[0] == '/' && buf[1] != '~') return 1;
-    if (buf[0] == '~' && buf[1] == '/') return 1;
+    if (buf[0] == '/') return 1;
 
     return 0;
 }

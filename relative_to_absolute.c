@@ -68,12 +68,24 @@ int check(char home_dir[], char buf[])
             exit(2);
         }
     }
-    if (!ispath(home_dir)) exit(3);
+    if (!is_abs_path(home_dir)) exit(3);
 
     if (slen(buf) > MAXPATH){
         printf("check path - len failed/n");
         exit(3);
     }
+
+    scpy(test_buf, buf);
+    count_tokens = stok(test_buf, '/', test_ptr);
+    for (int i = 1; i < count_tokens; i++)
+    {
+        if ( !(slen(*(test_ptr + i))) ) //ДОБАВИТЬ ПРОВЕРКУ НА ОДНУ ЕДИНСТВЕННУЮ ТИЛЬДУ В  СЕРЕДИНЕ ПТР
+        {
+            puts("incorrect path");
+            exit(2);
+        }
+    }
+
     
     return 1;
 }
