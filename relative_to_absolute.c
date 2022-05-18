@@ -20,25 +20,31 @@ char* winput(char buffer[])
 
 int input(char home_dir[], char buffer[])
 {
-    FILE* input;
+     FILE* input;
     char delim = '+';
-    char *ptr[MAXPATH];
-    int path_counter;
+    int path_counter = 0;
     if ( (input = fopen("input.txt", "w+") ) == NULL) return 0;
 
     printf("delim: +\ndir: ");
     winput(home_dir);
+    
+
     //char str2[MAXPATH] = "~/games/packman.cpp+~alex/docs+~/study/Prog/lab4.c+/usr/bin/gcc";
-    path_counter = stok(buffer, delim, ptr);
+
+    char *ptr[MAXPATH];
+    
     printf("paths: ");
     winput(buffer);
-    for (int i = 0; i < path_counter; i++)
-    {
-        fscanf(input, "%s", ptr[i]);
-    }
+    //path_counter = stok(buffer, delim, ptr);
+    path_counter = stok(buffer, delim, ptr);
     
+    for (int i = 0; path_counter > 0; i++, path_counter--)
+    {
+        fprintf(input, "%s\n", ptr[i]);
+    }
     fclose(input);
     return 1;
+
 }
 int check(char home_dir[], char buf[])
 {
@@ -74,7 +80,7 @@ int check(char home_dir[], char buf[])
         puts("not a linux path");
         exit(1);
     }
-    printf("%d",count_tokens);
+    
     for (int i = 1; i < count_tokens; i++)
     {
         if ( !(slen(*(test_ptr + i))) )
@@ -124,7 +130,7 @@ int output_path()
 {
     FILE *output;
     char buf[MAXPATH];
-    printf("paths: ");
+    printf("new paths: ");
     if ( (output = fopen("output.txt", "r") ) == NULL) return 0;
     while(!feof(output))
     {
