@@ -53,7 +53,7 @@ int check(char home_dir[], char buf[])
     int count_tokens = 0;
 
     if (slen(home_dir) > MAXPATH){
-        printf("check dir - len failed/n");
+        printf("check home dir - len failed/n");
         exit(1);
     }
 
