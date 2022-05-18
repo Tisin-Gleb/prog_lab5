@@ -1,4 +1,0 @@
-~/games/packman.cpp
-~alex/docs
-~/study/Prog/lab4.c
-/usr/bin/gcc

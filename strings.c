@@ -21,7 +21,6 @@ int schr(char *str, char ch)
 
 int is_abs_path(char *buf)
 {
-    int length = slen(buf);
     if (buf[0] == '/') return 1;
 
     return 0;
